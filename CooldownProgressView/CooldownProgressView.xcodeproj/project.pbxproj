@@ -10,6 +10,8 @@
 		16BC083C1E63EEE0000A74B8 /* CooldownProgressView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16BC08321E63EEE0000A74B8 /* CooldownProgressView.framework */; };
 		16BC08411E63EEE0000A74B8 /* CooldownProgressViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BC08401E63EEE0000A74B8 /* CooldownProgressViewTests.swift */; };
 		16BC08431E63EEE0000A74B8 /* CooldownProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 16BC08351E63EEE0000A74B8 /* CooldownProgressView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16BC084D1E63EFB4000A74B8 /* CooldownProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BC084C1E63EFB4000A74B8 /* CooldownProgressView.swift */; };
+		16BC084F1E63F0E4000A74B8 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BC084E1E63F0E4000A74B8 /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		16BC083B1E63EEE0000A74B8 /* CooldownProgressViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CooldownProgressViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16BC08401E63EEE0000A74B8 /* CooldownProgressViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooldownProgressViewTests.swift; sourceTree = "<group>"; };
 		16BC08421E63EEE0000A74B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16BC084C1E63EFB4000A74B8 /* CooldownProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CooldownProgressView.swift; sourceTree = "<group>"; };
+		16BC084E1E63F0E4000A74B8 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				16BC08351E63EEE0000A74B8 /* CooldownProgressView.h */,
+				16BC084C1E63EFB4000A74B8 /* CooldownProgressView.swift */,
+				16BC084E1E63F0E4000A74B8 /* ProgressView.swift */,
 				16BC08361E63EEE0000A74B8 /* Info.plist */,
 			);
 			path = CooldownProgressView;
@@ -149,6 +155,7 @@
 					16BC08311E63EEE0000A74B8 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = KC8N9BMQJY;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					16BC083A1E63EEE0000A74B8 = {
@@ -198,6 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16BC084D1E63EFB4000A74B8 /* CooldownProgressView.swift in Sources */,
+				16BC084F1E63F0E4000A74B8 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +331,7 @@
 		16BC08471E63EEE0000A74B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = KC8N9BMQJY;
@@ -334,6 +344,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.crazism.CooldownProgressView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -341,6 +352,7 @@
 		16BC08481E63EEE0000A74B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = KC8N9BMQJY;
@@ -360,6 +372,7 @@
 		16BC084A1E63EEE0000A74B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = KC8N9BMQJY;
 				INFOPLIST_FILE = CooldownProgressViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -372,6 +385,7 @@
 		16BC084B1E63EEE0000A74B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = KC8N9BMQJY;
 				INFOPLIST_FILE = CooldownProgressViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -400,6 +414,7 @@
 				16BC08481E63EEE0000A74B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		16BC08491E63EEE0000A74B8 /* Build configuration list for PBXNativeTarget "CooldownProgressViewTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +423,7 @@
 				16BC084B1E63EEE0000A74B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
