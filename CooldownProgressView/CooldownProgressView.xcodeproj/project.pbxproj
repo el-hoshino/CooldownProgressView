@@ -414,6 +414,7 @@
 				16BC08481E63EEE0000A74B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		16BC08491E63EEE0000A74B8 /* Build configuration list for PBXNativeTarget "CooldownProgressViewTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +423,7 @@
 				16BC084B1E63EEE0000A74B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
