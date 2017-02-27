@@ -49,7 +49,6 @@ public class CooldownProgressView: UIView {
 		subview.frame = self.bounds
 		subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		self.addSubview(subview)
-		
 	}
 	
 	private func setupView() {
