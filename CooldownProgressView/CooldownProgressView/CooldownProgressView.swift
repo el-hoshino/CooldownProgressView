@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CooldownProgressView: UIView {
+open class CooldownProgressView: UIView {
 	
 	fileprivate let imageView = UIImageView()
 	fileprivate let progressView = ProgressView()
