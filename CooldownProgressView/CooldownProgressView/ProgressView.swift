@@ -43,7 +43,7 @@ class ProgressView: UIView {
 		let fillProgress = 1 - self.progress
 		let fillColor = UIColor(white: 0, alpha: 0.5).cgColor
 		let center = CGPoint(x: rect.width * 0.5, y: rect.height * 0.5)
-		let radius = max(rect.width, rect.height) * sqrt(2)
+		let radius = ceil(sqrt(rect.width * rect.height))
 		let startRadian: CGFloat = 0 - (.pi * 0.5)
 		let endRadian: CGFloat = (fillProgress * .pi * 2) - (.pi * 0.5)
 		
