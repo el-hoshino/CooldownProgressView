@@ -8,4 +8,4 @@ let view = CooldownProgressView(frame: CGRect(x: 0, y: 0, width: 320, height: 32
 PlaygroundPage.current.liveView = view
 
 view.image = #imageLiteral(resourceName: "lena_std.png")
-view.progress = 0.3
+view.setProgress(to: 1, within: 1)
