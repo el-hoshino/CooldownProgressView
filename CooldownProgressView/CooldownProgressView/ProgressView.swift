@@ -8,9 +8,9 @@
 
 import UIKit
 
-final class ProgressView: UIView {
+public final class ProgressView: UIView {
 	
-	override class var layerClass: AnyClass {
+	override public class var layerClass: AnyClass {
 		return CAShapeLayer.self
 	}
 	
@@ -19,19 +19,17 @@ final class ProgressView: UIView {
 		return layer
 	}
 	
-	fileprivate(set) var progress: CGFloat = 0
-	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		self.setupView()
 		self.setupShapeLayer()
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	override func layoutSubviews() {
+	override public func layoutSubviews() {
 		super.layoutSubviews()
 		self.updateShapeLayerFrame()
 	}
@@ -97,9 +95,7 @@ extension ProgressView {
 	}
 	
 	func updateProgress(to newProgress: CGFloat, within duration: TimeInterval?) {
-		
-		self.progress = newProgress
-		
+				
 		let fillProgress = 1 - newProgress
 		
 		if let duration = duration {
