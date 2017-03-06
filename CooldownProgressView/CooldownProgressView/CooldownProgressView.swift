@@ -23,12 +23,7 @@ open class CooldownProgressView: UIView {
 	}
 	
 	public var progress: CGFloat {
-		get {
-			return self.progressView.progress
-		}
-		set {
-			self.progressView.progress = newValue
-		}
+		return self.progressView.progress
 	}
 	
 	override public init(frame: CGRect) {
@@ -54,6 +49,14 @@ open class CooldownProgressView: UIView {
 	private func setupView() {
 		self.setupSubview(self.imageView)
 		self.setupSubview(self.progressView)
+	}
+	
+}
+
+extension CooldownProgressView {
+	
+	public func setProgress(to newProgress: CGFloat, within duration: TimeInterval? = nil) {
+		self.progressView.updateProgress(to: newProgress, within: duration)
 	}
 	
 }

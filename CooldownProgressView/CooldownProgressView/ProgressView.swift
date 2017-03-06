@@ -8,49 +8,106 @@
 
 import UIKit
 
-class ProgressView: UIView {
+final class ProgressView: UIView {
+	
+	override class var layerClass: AnyClass {
+		return CAShapeLayer.self
+	}
+	
+	var shapeLayer: CAShapeLayer {
+		guard let layer = self.layer as? CAShapeLayer else { fatalError("Layer is not CALayer!") }
+		return layer
+	}
+	
+	fileprivate(set) var progress: CGFloat = 0
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.backgroundColor = .clear
-	}
-	
-	convenience init() {
-		self.init(frame: .zero)
+		self.setupView()
+		self.setupShapeLayer()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	var progress: CGFloat = 0 {
-		didSet {
-			self.setNeedsDisplay()
-		}
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		self.updateShapeLayerFrame()
 	}
 	
-	override func draw(_ rect: CGRect) {
-		super.draw(rect)
-		self.drawPie(rect: rect)
+}
+
+extension ProgressView {
+	
+	fileprivate func setupView() {
+		
+		self.backgroundColor = .clear
+		self.clipsToBounds = true
+		
 	}
 	
-	private func drawPie(rect: CGRect) {
+	fileprivate func setupShapeLayer() {
 		
-		guard let context = UIGraphicsGetCurrentContext() else {
-			return
+		self.layer.backgroundColor = UIColor.clear.cgColor
+		self.shapeLayer.strokeStart = 0
+		self.shapeLayer.strokeEnd = 1
+		self.shapeLayer.strokeColor = UIColor(white: 0, alpha: 0.5).cgColor
+		self.shapeLayer.fillColor = UIColor.clear.cgColor
+		
+	}
+	
+}
+
+extension ProgressView {
+	
+	fileprivate func updateShapeLayerFrame() {
+		
+		let lineWidth = max(self.bounds.width, self.bounds.height)
+		let center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+		let radius = max(self.bounds.width, self.bounds.height) / 2
+		
+		self.shapeLayer.lineWidth = lineWidth
+		self.shapeLayer.path = UIBezierPath(arcCenter: center,
+		                                    radius: radius,
+		                                    startAngle: .pi * -0.5,
+		                                    endAngle: .pi * 1.5,
+		                                    clockwise: true).cgPath
+		
+	}
+	
+}
+
+extension ProgressView {
+	
+	private func animateProgress(to fillProgress: CGFloat, within duration: TimeInterval) {
+		
+		let animation = CABasicAnimation(keyPath: "strokeEnd")
+		animation.fromValue = self.shapeLayer.strokeEnd
+		animation.toValue = fillProgress
+		animation.duration = duration
+		animation.timingFunction = CAMediaTimingFunction(controlPoints: 0.215, 0.61, 0.355, 1)
+		self.shapeLayer.add(animation, forKey: "updateProgress")
+		self.shapeLayer.strokeEnd = fillProgress
+		
+	}
+	
+	private func setProgress(to fillProgress: CGFloat) {
+		self.shapeLayer.strokeEnd = fillProgress
+	}
+	
+	func updateProgress(to newProgress: CGFloat, within duration: TimeInterval?) {
+		
+		self.progress = newProgress
+		
+		let fillProgress = 1 - newProgress
+		
+		if let duration = duration {
+			self.animateProgress(to: fillProgress, within: duration)
+			
+		} else {
+			self.setProgress(to: fillProgress)
 		}
-		
-		let fillProgress = 1 - self.progress
-		let fillColor = UIColor(white: 0, alpha: 0.5).cgColor
-		let center = CGPoint(x: rect.width * 0.5, y: rect.height * 0.5)
-		let radius = ceil(sqrt(rect.width * rect.height))
-		let startRadian: CGFloat = 0 - (.pi * 0.5)
-		let endRadian: CGFloat = (fillProgress * .pi * 2) - (.pi * 0.5)
-		
-		context.setFillColor(fillColor)
-		context.move(to: center)
-		context.addArc(center: center, radius: radius, startAngle: startRadian, endAngle: endRadian, clockwise: false)
-		context.fillPath()
 		
 	}
 	
