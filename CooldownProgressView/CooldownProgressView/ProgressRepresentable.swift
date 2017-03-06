@@ -35,7 +35,7 @@ extension CooldownProgressRepresentable where Self: UIView {
 
 extension CooldownProgressRepresentable {
 	
-	public func setProgress(to newProgress: CGFloat, within duration: TimeInterval? = nil, completion: (() -> Void)?) {
+	public func setProgress(to newProgress: CGFloat, within duration: TimeInterval? = nil, completion: (() -> Void)? = nil) {
 		self.progress = newProgress
 		self.progressView.updateProgress(to: newProgress, within: duration, completion: completion)
 	}
