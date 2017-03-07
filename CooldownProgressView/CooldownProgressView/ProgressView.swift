@@ -40,6 +40,7 @@ extension ProgressView {
 	
 	fileprivate func setupView() {
 		
+		self.isUserInteractionEnabled = false
 		self.backgroundColor = .clear
 		self.clipsToBounds = true
 		
