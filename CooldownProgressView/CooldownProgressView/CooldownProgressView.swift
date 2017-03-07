@@ -8,10 +8,10 @@
 
 import UIKit
 
-open class CooldownProgressView: UIView {
+open class CooldownProgressView: UIView, CooldownProgressRepresentable {
 	
 	fileprivate let imageView = UIImageView()
-	fileprivate let progressView = ProgressView()
+	public let progressView = ProgressView()
 	
 	public var image: UIImage? {
 		get {
@@ -22,41 +22,29 @@ open class CooldownProgressView: UIView {
 		}
 	}
 	
-	public var progress: CGFloat {
-		return self.progressView.progress
-	}
+	public var progress: CGFloat = 1
 	
 	override public init(frame: CGRect) {
 		super.init(frame: frame)
-		self.setupView()
+		self.setupImageView()
+		self.setupProgressView()
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		self.setupView()
+		self.setupImageView()
+		self.setupProgressView()
 	}
 	
 	convenience public init() {
 		self.init(frame: .zero)
 	}
 	
-	private func setupSubview(_ subview: UIView) {
-		subview.frame = self.bounds
-		subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.addSubview(subview)
-	}
-	
-	private func setupView() {
-		self.setupSubview(self.imageView)
-		self.setupSubview(self.progressView)
-	}
-	
-}
-
-extension CooldownProgressView {
-	
-	public func setProgress(to newProgress: CGFloat, within duration: TimeInterval? = nil) {
-		self.progressView.updateProgress(to: newProgress, within: duration)
+	private func setupImageView() {
+		let view = self.imageView
+		view.frame = self.bounds
+		view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		self.addSubview(view)
 	}
 	
 }

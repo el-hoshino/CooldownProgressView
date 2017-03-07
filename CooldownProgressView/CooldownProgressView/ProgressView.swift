@@ -8,9 +8,9 @@
 
 import UIKit
 
-final class ProgressView: UIView {
+public final class ProgressView: UIView {
 	
-	override class var layerClass: AnyClass {
+	override public class var layerClass: AnyClass {
 		return CAShapeLayer.self
 	}
 	
@@ -19,19 +19,17 @@ final class ProgressView: UIView {
 		return layer
 	}
 	
-	fileprivate(set) var progress: CGFloat = 0
-	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		self.setupView()
 		self.setupShapeLayer()
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	override func layoutSubviews() {
+	override public func layoutSubviews() {
 		super.layoutSubviews()
 		self.updateShapeLayerFrame()
 	}
@@ -42,6 +40,7 @@ extension ProgressView {
 	
 	fileprivate func setupView() {
 		
+		self.isUserInteractionEnabled = false
 		self.backgroundColor = .clear
 		self.clipsToBounds = true
 		
@@ -80,35 +79,48 @@ extension ProgressView {
 
 extension ProgressView {
 	
-	private func animateProgress(to fillProgress: CGFloat, within duration: TimeInterval) {
+	private func animateProgress(to fillProgress: CGFloat, within duration: TimeInterval, completion: (() -> Void)?) {
 		
-		let animation = CABasicAnimation(keyPath: "strokeEnd")
-		animation.fromValue = self.shapeLayer.strokeEnd
+		CATransaction.begin()
+		CATransaction.setCompletionBlock(completion)
+		
+		let animationKeyPath = "strokeEnd"
+		let animation = CABasicAnimation(keyPath: animationKeyPath)
+		animation.fromValue = self.shapeLayer.current.value(forKey: animationKeyPath)
 		animation.toValue = fillProgress
 		animation.duration = duration
 		animation.timingFunction = CAMediaTimingFunction(controlPoints: 0.215, 0.61, 0.355, 1)
 		self.shapeLayer.add(animation, forKey: "updateProgress")
 		self.shapeLayer.strokeEnd = fillProgress
 		
+		CATransaction.commit()
+		
 	}
 	
-	private func setProgress(to fillProgress: CGFloat) {
+	private func setProgress(to fillProgress: CGFloat, completion: (() -> Void)?) {
 		self.shapeLayer.strokeEnd = fillProgress
+		completion?()
 	}
 	
-	func updateProgress(to newProgress: CGFloat, within duration: TimeInterval?) {
-		
-		self.progress = newProgress
-		
+	func updateProgress(to newProgress: CGFloat, within duration: TimeInterval?, completion: (() -> Void)? = nil) {
+				
 		let fillProgress = 1 - newProgress
 		
 		if let duration = duration {
-			self.animateProgress(to: fillProgress, within: duration)
+			self.animateProgress(to: fillProgress, within: duration, completion: completion)
 			
 		} else {
-			self.setProgress(to: fillProgress)
+			self.setProgress(to: fillProgress, completion: completion)
 		}
 		
+	}
+	
+}
+
+private extension CALayer {
+	
+	var current: CALayer {
+		return self.presentation() ?? self
 	}
 	
 }
