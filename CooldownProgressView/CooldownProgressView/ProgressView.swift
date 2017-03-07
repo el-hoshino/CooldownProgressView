@@ -84,8 +84,9 @@ extension ProgressView {
 		CATransaction.begin()
 		CATransaction.setCompletionBlock(completion)
 		
-		let animation = CABasicAnimation(keyPath: "strokeEnd")
-		animation.fromValue = self.shapeLayer.strokeEnd
+		let animationKeyPath = "strokeEnd"
+		let animation = CABasicAnimation(keyPath: animationKeyPath)
+		animation.fromValue = self.shapeLayer.current.value(forKey: animationKeyPath)
 		animation.toValue = fillProgress
 		animation.duration = duration
 		animation.timingFunction = CAMediaTimingFunction(controlPoints: 0.215, 0.61, 0.355, 1)
@@ -112,6 +113,14 @@ extension ProgressView {
 			self.setProgress(to: fillProgress, completion: completion)
 		}
 		
+	}
+	
+}
+
+private extension CALayer {
+	
+	var current: CALayer {
+		return self.presentation() ?? self
 	}
 	
 }
